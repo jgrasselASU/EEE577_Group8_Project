@@ -4,7 +4,7 @@ reset;	#Clean slate
 set BUS;	#set of busses, n in BUS
 set GEN;	#set of generators, g in GEN
 set ELINE;	#set of existing lines, k in ELINE
-set NLINE;	#set of candidate lines to be built, k in NLINE
+set NLINE;	#set of candidate (new) lines to be built, k in NLINE
 
 #### ---- Parameters ---- ####
 param C		{g in GEN};	#Generator linear cost term
