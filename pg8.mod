@@ -7,26 +7,26 @@ set ELINE;	#set of existing lines, k in ELINE
 set NLINE;	#set of candidate (new) lines to be built, k in NLINE
 
 #### ---- Parameters ---- ####
+param d		{n in BUS};		#Bus demand
+param Pmax	{g in GEN};		#Generator limits
 param C		{g in GEN};	#Generator linear cost term
 param Gbus	{g in GEN};	#Generator bus location
 param C_new	{k in NLINE};	#Cost of installing a new line
 param Fe	{k in ELINE};	#Existing line limits
 param Fn	{k in NLINE};	#New line limits
-param Pmax	{g in GEN};		#Generator limits
 param Be	{k in ELINE};	#Existing line susceptance
 param Bn	{k in NLINE};	#New line susceptance
-param d		{n in BUS};		#Bus demand
 param eline_s	{k in ELINE};	#Existing line from bus (sending)
 param eline_r	{k in ELINE};	#Existing line to bus (receiving)
 param nline_s	{k in NLINE};	#New line from bus
 param nline_r	{k in NLINE};	#New line to bus
 
 #### ---- Decision Variables ---- ####
+var del	{n in BUS};			#Voltage angle at each bus
 var Pgen{g in GEN} >= 0;	#Generator power
 var Pel	{k in ELINE};		#Power flow in existing lines
 var Pnl	{k in NLINE};		#Power flow on new lines
 var w	{k in NLINE} binary;#Binary choice of new line install
-var del	{n in BUS};			#Voltage angle at each bus
 
 #### ---- Objective ---- ####
 minimize COST: 
