@@ -97,4 +97,15 @@ param: NLINE: Fn Bn nline_s nline_r C_new := include pg8_nline.dat;
 options solver gurobi;
 solve;
 display _total_solve_elapsed_time; 
-option show_stats 1;	
+option show_stats 1;
+
+#### ---- Make output of solution ---- ####
+#Generator output
+for{g in GEN} {
+printf "%s%8.2f\n", g, Pgen[g] > out.Unit_Commit;
+}
+
+#Lines to purchase
+for{k in NLINE: w[k]=1} {
+printf "%s%2i\n", k, w[k] > out.Line_Purchase;
+}
