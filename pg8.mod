@@ -100,6 +100,9 @@ display _total_solve_elapsed_time;
 option show_stats 1;
 
 #### ---- Make output of solution ---- ####
+#Cost
+printf "%12.2f", COST > out.Final_Cost;
+
 #Generator output
 for{g in GEN} {
 printf "%s%8.2f\n", g, Pgen[g] > out.Unit_Commit;
