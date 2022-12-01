@@ -33,8 +33,16 @@ minimize COST:
 	(sum{g in GEN}Pgen[g]*C[g]) + (sum{k in NLINE}Cnew[k]*w[k]);
 	
 #### ---- Constraints ---- ####
+
 subject to gen_limit {g in GEN}:
 	Pgen[g] <= Pmax[g];
+	
+subject to flow_balance {n in BUS}:
+	(sum{k in ELINE: e_ns[k] == n}Pe[k]) + (sum{k in NLINE: n_ns[k] == n}Pn[k])
+	- (sum{k in ELINE: e_nr[k] == n}Pe[k]) - (sum{k in NLINE: n_nr[k] == n}Pn[k])
+	=
+	(sum{g in GEN: ng[g] == n}Pgen[g])
+	- d[n];
 	
 subject to e_line_limit {k in ELINE}:
 	-Fe[k] <= Pe[k] <= Fe[k];
@@ -53,13 +61,6 @@ subject to n_line_angle1 {k in NLINE}:
 	
 subject to n_line_angle2 {k in NLINE}:
 	Pn[k]- Bn[k]*(theta[n_nr[k]] - theta[n_ns[k]]) <= (1-w[k])*100000;
-	
-subject to flow_balance {n in BUS}:
-	(sum{k in ELINE: e_ns[k] == n}Pe[k]) + (sum{k in NLINE: n_ns[k] == n}Pn[k])
-	- (sum{k in ELINE: e_nr[k] == n}Pe[k]) - (sum{k in NLINE: n_nr[k] == n}Pn[k])
-	=
-	(sum{g in GEN: ng[g] == n}Pgen[g])
-	- d[n];
 	
 #### ---- Load Data ---- ####
 data;
