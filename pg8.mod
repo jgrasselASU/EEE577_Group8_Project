@@ -113,3 +113,16 @@ printf "%s%8.2f\n", g, Pgen[g] > out.Unit_Commit;
 for{k in NLINE: w[k]=1} {
 printf "%s%2i\n", k, w[k] > out.Line_Purchase;
 }
+
+#For vizualization
+for{n in BUS} {
+printf "%s, %8.2f, %8.2f\n", n, sum{g in GEN: ng[g] == n} Pgen[g], d[n] > out.Bus_Gen_Dem;
+}
+
+for{k in ELINE} {
+printf "%s, %s, %s, %8.f\n",k, e_ns[k], e_nr[k], Pe[k] > out.Line_Flow;
+}
+
+for{k in NLINE: w[k] > 0}{
+printf "%s, %s, %s, %8.f\n",k, n_ns[k], n_nr[k], Pn[k] > out.New_Line_Flow;
+}
