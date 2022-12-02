@@ -92,7 +92,8 @@ param: ELINE: Fe Be e_ns e_nr := include pg8_eline.dat;
 	#sending bus id
 	#receiving bu id
 	#cost of installing this new line
-param: NLINE: Fn Bn n_ns n_nr Cnew := include pg8_nline.dat;
+param: NLINE: Fn Bn n_ns n_nr Cnew := include pg8_nline_2.dat;
+# Change to pg8_nline_1.dat to use a one line limit
 
 #### ---- Solve! ---- ####
 options solver gurobi;
@@ -106,7 +107,7 @@ printf "%12.2f", COST > out.Final_Cost;
 
 #Generator output
 for{g in GEN} {
-printf "%s%8.2f\n", g, Pgen[g] > out.Unit_Commit;
+printf "%s%8.2f%8.2f\n", g, Pgen[g], C[g] > out.Unit_Commit;
 }
 
 #Lines to purchase
